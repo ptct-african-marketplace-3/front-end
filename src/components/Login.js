@@ -205,6 +205,7 @@ export default function Register() {
                 id='location'
                 value={formData.location}
                 label='Location'
+                fullWidth
                 onChange={(e) => handleChange(e)}
               >
                 <MenuItem name='location' value='place1'>
