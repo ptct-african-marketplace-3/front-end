@@ -7,8 +7,9 @@ import {
   Box,
   Link,
   Card,
-  Checkbox,
+  FormControlLabel,
   Button,
+  Checkbox,
   TextField,
   CssBaseline,
   MenuItem,
@@ -108,10 +109,6 @@ export default function Register() {
     setFormErrors(name, e.target[valueToUse])
   }
 
-  const handleSelectChange = (selected, name) => {
-    setFormData({ ...formData, [name]: selected.value })
-  }
-
   useEffect(() => {
     formSchema.isValid(formData).then((valid) => setDisabledButton(!valid))
     console.log('USE EFFECT FINAL FORM DATA', formData)
@@ -208,7 +205,7 @@ export default function Register() {
                 id='location'
                 value={formData.location}
                 label='Location'
-                onChange={(val) => handleSelectChange(val, 'location')}
+                onChange={(e) => handleChange(e)}
               >
                 <MenuItem name='location' value='place1'>
                   Place 1
@@ -221,16 +218,13 @@ export default function Register() {
                 </MenuItem>
               </Select>
 
-              <Checkbox
+              <FormControlLabel
                 id='remember'
+                control={<Checkbox />}
+                name='remember'
                 label='Remember me'
                 checked={formData.remember}
                 onChange={(e) => handleChange(e)}
-                style={{
-                  display: 'block',
-                  margin: '0.5rem 0 0.5rem 0',
-                  alignSelf: 'start',
-                }}
               />
               <Button
                 id='button'
