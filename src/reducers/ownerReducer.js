@@ -16,9 +16,9 @@ from "../actions/ownerActions"
 
 
 const initialState = {
-    items : [],
+    items  : [],
     loading: false,
-    error: ''
+    error  : ''
 };
 
 
@@ -36,13 +36,13 @@ export default function ownerReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                items: [...action.payload]
+                items  : [...action.payload]
             };
         case GET_ITEMS_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error  : action.payload
             };
 
         case CREATE_ITEM_START:
@@ -54,14 +54,14 @@ export default function ownerReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                items: [...state.items, action.payload]
+                items  : [...state.items, action.payload]
             };
         
         case CREATE_ITEM_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error  : action.payload
             };
 
 
@@ -79,14 +79,14 @@ export default function ownerReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                items: newItems
+                items  : newItems
             };
 
         case EDIT_ITEM_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error  : action.payload
             };
 
 
@@ -100,14 +100,14 @@ export default function ownerReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                items: [state.items.filter(item => item.id !== action.payload.id)]
+                items  : [state.items.filter(item => item.id !== action.payload.id)]
             };
 
         case DELETE_ITEM_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error  : action.payload
             };
 
         default:

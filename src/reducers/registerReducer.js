@@ -5,8 +5,9 @@ import {
 from "../actions/registerActions";
 
 const initialState = {
-    login: {},
-    error: '',
+    login  : {},
+    loading: false,
+    error  : '',
 }
 
 export default function registerReducer(state = initialState, action) {
@@ -21,13 +22,14 @@ export default function registerReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
+                login  : action.payload 
             };
 
         case REGISTER_FAILURE:
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error  : action.payload
             };
 
         default:

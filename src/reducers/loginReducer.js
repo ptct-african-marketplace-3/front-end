@@ -5,21 +5,32 @@ import {
 from '../actions/loginActions';
 
 const initialState = {
-    login: {},
-    error: '',
+    login  : {},
+    error  : '',
     loading: false
 }
 
 export default function loginReducer(state = initialState, action) {
     switch(action.type) {
         case LOGIN_START:
-            return { ...state, loading: true };
+            return { 
+                ...state, 
+                loading: true 
+            };
 
         case LOGIN_SUCCESS:
-            return { ...state, loading: false, login: action.payload};
+            return { 
+                ...state,
+                loading: false, 
+                login  : action.payload
+            };
         
         case LOGIN_FAILURE:
-            return {...state, loading: false, error: action.payload};
+            return {
+                ...state, 
+                loading: false, 
+                error  : action.payload
+            };
 
         default:
             return state;
