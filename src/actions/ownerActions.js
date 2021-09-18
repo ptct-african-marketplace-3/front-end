@@ -12,6 +12,29 @@ export const DELETE_ITEM_START   = 'DELETE_ITEM_START';
 export const DELETE_ITEM_SUCCESS = 'DELETE_ITEM_SUCCESS';
 export const DELETE_ITEM_FAILURE = 'DELETE_ITEM_FAILURE';
 
+export const GET_ITEMS_START   = 'GET_ITEMS_START';
+export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS';
+export const GET_ITEMS_FAILURE = 'GET_ITEMS_FAILURE';
+
+// Get the owner's items
+export const getItems = (ownerID) => dispatch => {
+    dispatch({type: GET_ITEMS_START});
+
+    axiosWithAuth().get('/')
+        .then(success => {
+            dispatch({
+                type   : GET_ITEMS_SUCCESS,
+                payload: success.data
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type   : GET_ITEMS_FAILURE,
+                payload: err
+            });
+        })
+}
+
 
 export const createItem = (itemData, push) => dispatch => {
     dispatch({type: CREATE_ITEM_START});
