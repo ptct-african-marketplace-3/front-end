@@ -1,5 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
+import ItemsList from './components/ItemsList';
 import Header from './components/Header';
 import Homepage from './components/Homepage';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
@@ -15,6 +15,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
+
   );
 }
 
