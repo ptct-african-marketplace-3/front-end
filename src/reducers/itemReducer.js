@@ -4,9 +4,18 @@ import {
     GET_ITEMS_FAILURE } 
 from "../actions/itemActions";
 
+const dummyData = [
+    {itemName: 'Very Cool Item', itemDescription: 'A very cool item', itemLocation: 'South Africa', itemPrice: 100}, 
+    {itemName: 'Very Cool Item', itemDescription: 'A very cool item', itemLocation: 'South Africa', itemPrice: 100}, 
+    {itemName: 'Very Cool Item', itemDescription: 'A very cool item', itemLocation: 'South Africa', itemPrice: 100},
+    {itemName: 'Very Cool Item', itemDescription: 'A very cool item', itemLocation: 'South Africa', itemPrice: 100}, 
+    {itemName: 'Very Cool Item', itemDescription: 'A very cool item', itemLocation: 'South Africa', itemPrice: 100}, 
+    {itemName: 'Very Cool Item', itemDescription: 'A very cool item', itemLocation: 'South Africa', itemPrice: 100}
+]
+
 const initialState = {
-    items  : [],
-    loading: false,
+    items  : [...dummyData],
+    loading: true,
     error  : ''
 };
 
@@ -18,10 +27,11 @@ export default function itemReducer(state = initialState, action) {
                 loading: true
             };
         case GET_ITEMS_SUCCESS:
+            console.log('Success');
             return {
                 ...state,
                 loading: false,
-                items  : [...action.payload]
+                items  : [...state.items, ...action.payload]
             };
         case GET_ITEMS_FAILURE:
             return {
