@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from "react-redux"
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function ItemsList() {
+const ItemsList = props => {
 
 
     //state
@@ -38,6 +39,6 @@ function ItemsList() {
             )}
         </div>
     )
-}
+};
 
 export default ItemsList
