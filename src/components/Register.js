@@ -223,31 +223,12 @@ export default function Register() {
                 autoComplete='current-password'
               />
 
-              {/* <FormControl
-                variant='outlined'
-                margin={'1'}
-                style={{ width: '100%' }}
-              >
-                <InputLabel id='test-select-label'>Label</InputLabel>
-                <Select
-                  value='a'
-                  label='Label' // here is the difference
-                >
-                  <MenuItem key={1} value='test'>
-                    Test 1
-                  </MenuItem>
-                  <MenuItem key={2} value='test2'>
-                    Test 2
-                  </MenuItem>
-                </Select>
-              </FormControl> */}
-
               <FormControl
                 variant='outlined'
                 // margin={'1'}
-                style={{ width: '100%' }}
+                style={{ margin: '1rem 0 1rem 0', width: '100%' }}
               >
-                <InputLabel id='select-label' fullWidth htmlFor='location'>
+                <InputLabel id='select-label' htmlFor='location'>
                   Location
                 </InputLabel>
                 <Select
@@ -258,7 +239,6 @@ export default function Register() {
                   id='location'
                   // variant='outlined'
                   // fullWidth
-                  // style={{ margin: '1rem 0 1rem 0' }}
                   onChange={(e) => handleChange(e)}
                 >
                   <MenuItem name='location' value='place1'>
