@@ -13,6 +13,9 @@ function App() {
         <Route exact path='/'>
           <Homepage/>
         </Route>
+        <Route path='/browse'>
+          <ItemsList />
+        </Route>
       </Switch>
     </Router>
 
