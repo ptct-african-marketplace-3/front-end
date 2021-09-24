@@ -15,6 +15,8 @@ import {
   MenuItem,
   Select,
   Avatar,
+  FormControl,
+  InputLabel,
 } from '@material-ui/core'
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
@@ -34,7 +36,7 @@ function Copyright(props) {
   return (
     <Typography
       variant='body2'
-      color='text.secondary'
+      // color='text.secondary'
       align='center'
       {...props}
     >
@@ -100,7 +102,7 @@ export default function Register() {
       location: formData.location,
       email: formData.email,
     }
-    console.log('RES', data)
+    console.log('REQ', data)
     axios
       .post(
         'https://ptct-african-marketplace-3.herokuapp.com/api/auth/register',
@@ -143,6 +145,7 @@ export default function Register() {
             color: 'black',
           }}
         />
+
         <Box
           id='boxAfterContainer'
           mt={24}
@@ -219,27 +222,56 @@ export default function Register() {
                 type='password'
                 autoComplete='current-password'
               />
-              <Select
-                labelId='location'
-                name='location'
-                id='location'
-                value={formData.location}
-                label='Location'
+
+              {/* <FormControl
                 variant='outlined'
-                fullWidth
-                style={{ margin: '1rem 0 1rem 0' }}
-                onChange={(e) => handleChange(e)}
+                margin={'1'}
+                style={{ width: '100%' }}
               >
-                <MenuItem name='location' value='place1'>
-                  Place 1
-                </MenuItem>
-                <MenuItem name='location' value='place2'>
-                  Place 2
-                </MenuItem>
-                <MenuItem name='location' value='place3'>
-                  Place 3
-                </MenuItem>
-              </Select>
+                <InputLabel id='test-select-label'>Label</InputLabel>
+                <Select
+                  value='a'
+                  label='Label' // here is the difference
+                >
+                  <MenuItem key={1} value='test'>
+                    Test 1
+                  </MenuItem>
+                  <MenuItem key={2} value='test2'>
+                    Test 2
+                  </MenuItem>
+                </Select>
+              </FormControl> */}
+
+              <FormControl
+                variant='outlined'
+                // margin={'1'}
+                style={{ width: '100%' }}
+              >
+                <InputLabel id='select-label' fullWidth htmlFor='location'>
+                  Location
+                </InputLabel>
+                <Select
+                  value={formData.location}
+                  label='Label'
+                  labelId='select-label'
+                  name='location'
+                  id='location'
+                  // variant='outlined'
+                  // fullWidth
+                  // style={{ margin: '1rem 0 1rem 0' }}
+                  onChange={(e) => handleChange(e)}
+                >
+                  <MenuItem name='location' value='place1'>
+                    Place 1
+                  </MenuItem>
+                  <MenuItem name='location' value='place2'>
+                    Place 2
+                  </MenuItem>
+                  <MenuItem name='location' value='place3'>
+                    Place 3
+                  </MenuItem>
+                </Select>
+              </FormControl>
 
               <FormControlLabel
                 id='remember'
