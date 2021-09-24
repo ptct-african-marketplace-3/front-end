@@ -61,6 +61,8 @@ export default function Register() {
 
   const [formData, setFormData] = useState(initialFormState)
 
+  const [stateFlag, setStateFlag] = useState(false)
+
   const [errors, setErrors] = useState({
     userName: '',
     email: '',
@@ -136,6 +138,12 @@ export default function Register() {
     console.log('INITIAL STATE', initialFormState)
   }, [])
 
+  useEffect(() => {
+    setStateFlag(true)
+
+    return setStateFlag(false)
+  }, [formData])
+
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' id='container' maxWidth='xs'>
@@ -170,7 +178,7 @@ export default function Register() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography id='signInTitle' component='h1' variant='h5'>
-              Sign in
+              Sign up
             </Typography>
             <Box
               id='boxBeforeTextField'
@@ -190,7 +198,7 @@ export default function Register() {
               <TextField
                 id='userName'
                 name='userName'
-                value={formData.user}
+                value={formData.userName}
                 onChange={(e) => handleChange(e)}
                 variant='outlined'
                 margin='normal'
@@ -213,7 +221,7 @@ export default function Register() {
               <TextField
                 id='password'
                 name='password'
-                value={formData.pass}
+                value={formData.password}
                 onChange={(e) => handleChange(e)}
                 variant='outlined'
                 margin='normal'
@@ -233,12 +241,14 @@ export default function Register() {
                 </InputLabel>
                 <Select
                   value={formData.location}
+                  key={stateFlag}
                   label='Label'
+                  labelWidth={600}
                   labelId='select-label'
                   name='location'
                   id='location'
                   // variant='outlined'
-                  // fullWidth
+                  fullWidth
                   onChange={(e) => handleChange(e)}
                 >
                   <MenuItem name='location' value='place1'>
@@ -253,7 +263,7 @@ export default function Register() {
                 </Select>
               </FormControl>
 
-              <FormControlLabel
+              {/* <FormControlLabel
                 id='remember'
                 control={<Checkbox />}
                 name='remember'
@@ -261,23 +271,26 @@ export default function Register() {
                 checked={formData.remember}
                 onChange={(e) => handleChange(e)}
                 style={{ margin: '0 0 1rem 0' }}
-              />
+              /> */}
               <Button
                 id='button'
                 type='submit'
                 fullWidth
-                style={{ height: '3.5rem' }}
+                style={{
+                  height: '3.5rem',
+                  margin: '1rem 0 0 0',
+                }}
                 variant='contained'
                 disabled={disabledButton}
               >
-                Sign In
+                Submit
               </Button>
               <Grid
                 container
                 id='lowerGrid1'
                 style={{ margin: '1rem 0 1rem 0' }}
               >
-                <Grid id='forgotPasswordGrid' item xs>
+                {/* <Grid id='forgotPasswordGrid' item xs>
                   <Link
                     id='forgotPasswordLink'
                     href='#'
@@ -289,20 +302,8 @@ export default function Register() {
                   >
                     Forgot password?
                   </Link>
-                </Grid>
-                <Grid item id='lowerGrid2'>
-                  <Link
-                    id='createAccountLink'
-                    href='#'
-                    variant='body2'
-                    style={{
-                      display: 'block',
-                      margin: '0.5rem 0 0.5rem 0',
-                    }}
-                  >
-                    Don't have an account? Sign Up
-                  </Link>
-                </Grid>
+                </Grid> */}
+                <Grid item id='lowerGrid2'></Grid>
               </Grid>
             </Box>
           </Card>
