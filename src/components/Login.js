@@ -5,7 +5,6 @@ import {
   Container,
   Grid,
   Box,
-  Link,
   Card,
   FormControlLabel,
   Button,
@@ -17,11 +16,14 @@ import {
   Avatar,
   FormControl,
   InputLabel,
+  Modal,
 } from '@material-ui/core'
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import { useState, useEffect } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { axiosWithAuth } from '../helpers/axiosWithAuth'
 import * as yup from 'yup'
 
 const initialFormState = {
@@ -53,7 +55,9 @@ const theme = createTheme({
   },
 })
 
-export default function Login() {
+export default function Login(props) {
+  const history = useHistory();
+
   const [disabledButton, setDisabledButton] = useState(true)
 
   const [formData, setFormData] = useState(initialFormState)
@@ -92,15 +96,24 @@ export default function Login() {
       userName: formData.userName,
     }
     console.log('REQ', data)
-    axios
+    axiosWithAuth()
       .post(
         'https://ptct-african-marketplace-3.herokuapp.com/api/auth/login',
         data
       )
       .then((res) => {
-        console.log('RES', res)
-        setFormData({ ...initialFormState })
+        console.log('RES', res);
+        setFormData({ ...initialFormState });
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('userId', res.data.ownerId);
+        console.log(data.userName);
+        localStorage.setItem('userName', data.userName);
+        history.push('/');
       })
+      .catch(err => {
+        console.log(err);
+        
+      });
   }
 
   const handleChange = (e) => {
@@ -134,7 +147,7 @@ export default function Login() {
   return (
     <ThemeProvider theme={theme}>
       <Container component='main' id='container' maxWidth='xs'>
-        <CssBaseline
+          <CssBaseline
           style={{
             backgroundColor: 'black',
             color: 'black',
@@ -238,8 +251,9 @@ export default function Login() {
                     Forgot password?
                   </Link>
                 </Grid> */}
-                {/* <Grid item id='lowerGrid2'>
+                 <Grid item id='lowerGrid2'>
                   <Link
+                    to='/register'
                     id='createAccountLink'
                     href='#'
                     variant='body2'
@@ -250,7 +264,7 @@ export default function Login() {
                   >
                     Don't have an account? Sign Up
                   </Link>
-                </Grid> */}
+                </Grid>
               </Grid>
             </Box>
           </Card>
