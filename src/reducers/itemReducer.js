@@ -14,7 +14,7 @@ const dummyData = [
 ]
 
 const initialState = {
-    items  : [...dummyData],
+    items  : [],
     loading: true,
     error  : ''
 };

@@ -5,7 +5,6 @@ import {
   Container,
   Grid,
   Box,
-  Link,
   Card,
   FormControlLabel,
   Button,
@@ -23,6 +22,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { createTheme, ThemeProvider } from '@material-ui/core/styles'
 import { useState, useEffect } from 'react'
 import * as yup from 'yup'
+import { useHistory, Link } from 'react-router-dom'
+import { axiosWithAuth } from '../helpers/axiosWithAuth'
 
 const initialFormState = {
   userName: '',
@@ -57,6 +58,8 @@ const theme = createTheme({
 })
 
 export default function Register() {
+  const history = useHistory();
+
   const [disabledButton, setDisabledButton] = useState(true)
 
   const [formData, setFormData] = useState(initialFormState)
@@ -105,7 +108,7 @@ export default function Register() {
       email: formData.email,
     }
     console.log('REQ', data)
-    axios
+    axiosWithAuth()
       .post(
         'https://ptct-african-marketplace-3.herokuapp.com/api/auth/register',
         data
@@ -113,6 +116,7 @@ export default function Register() {
       .then((res) => {
         console.log('RES', res)
         setFormData({ ...initialFormState })
+        history.push('/login');
       })
   }
 
@@ -302,7 +306,22 @@ export default function Register() {
                   >
                     Forgot password?
                   </Link>
-                </Grid> */}
+                </Grid> */}                 
+                <Grid item id='lowerGrid2'>
+                  <Link
+                    to='/login'
+                    id='createAccountLink'
+                    href='#'
+                    variant='body2'
+                    style={{
+                      display: 'block',
+                      margin: '0.5rem 0 0.5rem 0',
+                    }}
+                  >
+                    Already have an account? Login
+                  </Link>
+                </Grid>
+
                 <Grid item id='lowerGrid2'></Grid>
               </Grid>
             </Box>

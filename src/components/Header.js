@@ -1,6 +1,6 @@
 import React from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { makeStyles, Typography, Button } from '@material-ui/core';
+import { Link, useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
     header: {
@@ -58,6 +58,14 @@ const useStyles = makeStyles({
 
 const Header = props => {
     const classes = useStyles();
+    const history = useHistory();
+
+    const logout = () => {
+        localStorage.setItem('token', '');
+        localStorage.setItem('userId', '');
+        localStorage.setItem('userName', '');
+        history.go(0);
+    }
 
     return (
         <header className={classes.header}>
@@ -65,9 +73,20 @@ const Header = props => {
             <nav className={classes.headerNav}>
                 <Link className={classes.headerLink} to='/'> HOME  </Link>
                 <Link className={classes.headerLink} to='/about'> ABOUT </Link>
-                <Link className={classes.headerLink} to='/browse'> BROWSE </Link>
-                <Link className={classes.headerLink} to='/login'> LOGIN/REGISTER </Link>
-            </nav>
+                {
+                
+                localStorage.getItem('token') === '' ?
+                    <Link className={classes.headerLink} to='/login'> LOGIN/REGISTER </Link>
+                    :
+                    ( 
+                        [
+                            <Link className={classes.headerLink} key='browse' to='/browse'> BROWSE </Link>,
+                            <Link className={classes.headerLink} key='user' to={`/user/${localStorage.getItem('userId')}`}> {localStorage.getItem('userName').toUpperCase()} </Link>,
+                            <Button className={classes.headerLink} key='logout' onClick={logout}> LOGOUT </Button>    
+                        ]
+                    )
+                }
+                </nav>
         </header>
     )
 }
