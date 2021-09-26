@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Card, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
-import { getItems } from '../actions/itemActions'; 
+import { getItems, clearItems } from '../actions/itemActions'; 
 import ItemCard from './ItemCard';
 
 const useStyles = makeStyles({
@@ -57,7 +57,8 @@ const Homepage = props => {
     }, []);
 
     useEffect(() => {
-        setItems([...props.items])
+        setItems([...props.items.splice(0, props.items.length-2)])
+
     }, [props.items])
 
     return (
@@ -67,9 +68,7 @@ const Homepage = props => {
                 <h3 className={classes.itemsCardTitle}> a few items from our sellers... </h3>
                 <div className={classes.items}> 
                     {!props.loading ? items.map(item => {
-                        console.log(item.itemName);
-                        console.log(items);
-                        return <ItemCard item={item}/>
+                        return <ItemCard key={item.itemId} item={item}/>
                     }) : <h2> Loading... </h2>}
                 </div>
             </Card>
@@ -83,6 +82,6 @@ const mapStateToProps = state => {
         error  : state.itemReducer.error
     }
 }
-const mapDispatchToProps = { getItems };
+const mapDispatchToProps = { getItems, clearItems };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

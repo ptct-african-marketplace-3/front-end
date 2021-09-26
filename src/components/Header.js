@@ -6,6 +6,7 @@ const useStyles = makeStyles({
     header: {
         zIndex: '1',
         position: 'fixed',
+        top: '0px',
         boxSizing: 'border-box',
         paddingBottom: '100px',
         width: '100%',
@@ -30,11 +31,6 @@ const useStyles = makeStyles({
         textDecorationThickness: '5px',
         fontSize: '3rem',
         fontFamily: 'Roboto'
-    },
-    headerFlag: {
-        backgroundImage: 'linear-gradient(red 25%, black, #33cc33)',
-        width: '150px',
-        height: '100px'
     },
     headerNav: {
         width: '100em',
@@ -64,6 +60,7 @@ const Header = props => {
         localStorage.setItem('token', '');
         localStorage.setItem('userId', '');
         localStorage.setItem('userName', '');
+        history.push('/');
         history.go(0);
     }
 
@@ -82,7 +79,7 @@ const Header = props => {
                         [
                             <Link className={classes.headerLink} key='browse' to='/browse'> BROWSE </Link>,
                             <Link className={classes.headerLink} key='user' to={`/user/${localStorage.getItem('userId')}`}> {localStorage.getItem('userName').toUpperCase()} </Link>,
-                            <Button className={classes.headerLink} key='logout' onClick={logout}> LOGOUT </Button>    
+                            <Link className={classes.headerLink} key='logout' onClick={logout}> LOGOUT </Link>    
                         ]
                     )
                 }

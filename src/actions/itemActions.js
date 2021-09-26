@@ -2,7 +2,8 @@ import { axiosWithAuth } from "../helpers/axiosWithAuth";
 
 export const GET_ITEMS_START   = 'GET_ITEMS_START';
 export const GET_ITEMS_SUCCESS = 'GET_ITEMS_SUCCESS';
-export const GET_ITEMS_FAILURE = 'GET_ITEMS_FAILURE';  
+export const GET_ITEMS_FAILURE = 'GET_ITEMS_FAILURE';
+export const CLEAR_ITEMS       = 'CLEAR_ITEMS';
 
 export const getItems = () => dispatch => {
     dispatch({type: GET_ITEMS_START});
@@ -24,4 +25,8 @@ export const getItems = () => dispatch => {
                 payload: err
             });
         });
+}
+
+export const clearItems = () => dispatch => {
+    dispatch({type: CLEAR_ITEMS});
 }
