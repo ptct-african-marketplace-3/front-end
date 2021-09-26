@@ -106,9 +106,9 @@ export default function Login(props) {
         setFormData({ ...initialFormState });
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('userId', res.data.ownerId);
-        console.log(data.userName);
         localStorage.setItem('userName', data.userName);
         history.push('/');
+        history.go(0);
       })
       .catch(err => {
         console.log(err);
@@ -158,6 +158,7 @@ export default function Login(props) {
           id='boxAfterContainer'
           mt={24}
           sx={{
+            marginTop: '0px auto',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -170,6 +171,7 @@ export default function Login(props) {
               flexDirection: 'column',
               justifyContent: 'center',
               alignItems: 'center',
+              marginTop: '200px',
               minWidth: '25vw',
               minHeight: '60vh',
             }}

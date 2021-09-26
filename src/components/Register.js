@@ -162,6 +162,7 @@ export default function Register() {
           id='boxAfterContainer'
           mt={24}
           sx={{
+            marginTop: '0px auto',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -170,6 +171,7 @@ export default function Register() {
           <Card
             id='card'
             style={{
+              marginTop: '200px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',

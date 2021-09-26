@@ -1,7 +1,8 @@
 import { 
     GET_ITEMS_START, 
     GET_ITEMS_SUCCESS, 
-    GET_ITEMS_FAILURE } 
+    GET_ITEMS_FAILURE,
+    CLEAR_ITEMS } 
 from "../actions/itemActions";
 
 const dummyData = [
@@ -28,16 +29,23 @@ export default function itemReducer(state = initialState, action) {
             };
         case GET_ITEMS_SUCCESS:
             console.log('Success');
+            console.log(state);
+            console.log(action);
             return {
                 ...state,
                 loading: false,
-                items  : [...state.items, ...action.payload]
+                items  : [...action.payload]
             };
         case GET_ITEMS_FAILURE:
             return {
                 ...state,
                 loading: false,
                 error  : action.payload
+            }
+        case CLEAR_ITEMS: 
+            return {
+                ...state,
+                items: []
             }
 
         default: 

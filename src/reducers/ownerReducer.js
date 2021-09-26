@@ -10,13 +10,13 @@ import {
     DELETE_ITEM_SUCCESS, 
     DELETE_ITEM_FAILURE, 
     GET_ITEMS_START, 
-    GET_ITEMS_SUCCESS, 
+    GET_OWNER_ITEMS_SUCCESS, 
     GET_ITEMS_FAILURE } 
 from "../actions/ownerActions"
 
 
 const initialState = {
-    items  : [],
+    ownerItems  : [],
     loading: false,
     error  : ''
 };
@@ -32,11 +32,13 @@ export default function ownerReducer(state = initialState, action) {
                 ...state,
                 loading: true
             };
-        case GET_ITEMS_SUCCESS:
+        case GET_OWNER_ITEMS_SUCCESS:
+            console.log('Get owner items success');    
+            console.log(state);
             return {
                 ...state,
                 loading: false,
-                items  : [...action.payload]
+                ownerItems  : [...action.payload]
             };
         case GET_ITEMS_FAILURE:
             return {
@@ -54,7 +56,7 @@ export default function ownerReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                items  : [...state.items, action.payload]
+                ownerItems  : [...state.ownerItems, action.payload]
             };
         
         case CREATE_ITEM_FAILURE:
@@ -72,14 +74,14 @@ export default function ownerReducer(state = initialState, action) {
             };
         
         case EDIT_ITEM_SUCCESS:
-            const index     = state.items.findIndex(item => item.id !== action.payload.id);
-            const newItems  = [...state.items];
+            const index     = state.ownerItems.findIndex(item => item.id !== action.payload.id);
+            const newItems  = [...state.ownerItems];
             newItems[index] = action.payload; 
 
             return {
                 ...state,
                 loading: false,
-                items  : newItems
+                ownerItems  : newItems
             };
 
         case EDIT_ITEM_FAILURE:
@@ -100,7 +102,7 @@ export default function ownerReducer(state = initialState, action) {
             return {
                 ...state,
                 loading: false,
-                items  : [state.items.filter(item => item.id !== action.payload.id)]
+                ownerIitems  : [state.ownerItems.filter(item => item.id !== action.payload.id)]
             };
 
         case DELETE_ITEM_FAILURE:
