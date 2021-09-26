@@ -9,6 +9,7 @@ import {BrowserRouter as Router, Route, Switch, useHistory} from 'react-router-d
 import UserPage from './components/UserPage';
 import CreateListing from './components/CreateListing';
 import ItemPage from './components/ItemPage';
+import EditListing from './components/EditListing';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <PrivateRoute path='/user/:ownerID' component={UserPage}/>
         <PrivateRoute path='/items/:itemID' component={ItemPage}/>
         <PrivateRoute path='/createListing' component={CreateListing}/>
+        <PrivateRoute path='/editListing' component={EditListing}/>
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Register}/>
 

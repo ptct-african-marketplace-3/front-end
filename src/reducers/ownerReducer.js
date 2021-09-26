@@ -11,12 +11,16 @@ import {
     DELETE_ITEM_FAILURE, 
     GET_ITEMS_START, 
     GET_OWNER_ITEMS_SUCCESS, 
-    GET_ITEMS_FAILURE } 
+    GET_ITEMS_FAILURE,
+    SET_CURRENT_EDIT_ITEM,
+    SET_CURRENT_VIEW_ITEM } 
 from "../actions/ownerActions"
 
 
 const initialState = {
     ownerItems  : [],
+    currentEditItem: [],
+    currentViewItem: [],
     loading: false,
     error  : ''
 };
@@ -74,6 +78,7 @@ export default function ownerReducer(state = initialState, action) {
             };
         
         case EDIT_ITEM_SUCCESS:
+            console.log('Setting Edit Item');
             const index     = state.ownerItems.findIndex(item => item.id !== action.payload.id);
             const newItems  = [...state.ownerItems];
             newItems[index] = action.payload; 
@@ -111,6 +116,18 @@ export default function ownerReducer(state = initialState, action) {
                 loading: false,
                 error  : action.payload
             };
+        
+        case SET_CURRENT_EDIT_ITEM: 
+            return {
+                ...state,
+                currentEditItem: action.payload
+            };
+        
+        case SET_CURRENT_VIEW_ITEM:
+            return {
+                ...state,
+                currentViewItem: action.payload 
+            }
 
         default:
             return state;

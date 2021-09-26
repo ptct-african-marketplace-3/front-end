@@ -2,7 +2,7 @@ import { Button, Card, makeStyles, Chip } from '@material-ui/core';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router';
-import { deleteItem, editItem } from '../actions/ownerActions';
+import { deleteItem, editItem, setCurrentEditItem, setCurrentViewItem } from '../actions/ownerActions';
 
 const useStyles = makeStyles({
     itemCard: {
@@ -78,14 +78,17 @@ const ItemCard = props => {
     const history = useHistory();
 
     const deleteItem = () => {
-        //props.deleteItem();
+        props.deleteItem(item.itemId);
+        history.push('/');
     }
 
     const editItem = () => {
-
+        props.setCurrentEditItem(item);
+        history.push('/editListing');
     }
 
     const viewItem = () => {
+        props.setCurrentViewItem(item);
         history.push(`/items/${item.itemId}`);
     }
 
@@ -118,7 +121,7 @@ const mapStateToProps = state => {
         ...state
     }
 }
-const mapDispatchToProps = { deleteItem, editItem }
+const mapDispatchToProps = { deleteItem, editItem, setCurrentEditItem, setCurrentViewItem }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(ItemCard);

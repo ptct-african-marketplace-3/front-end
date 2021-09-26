@@ -1,4 +1,5 @@
 import { axiosWithAuth } from "../helpers/axiosWithAuth";
+import { getItems, GET_ITEMS_SUCCESS } from "./itemActions";
 
 export const CREATE_ITEM_START   = 'CREATE_ITEM_START';
 export const CREATE_ITEM_SUCCESS = 'CREATE_ITEM_SUCCESS';
@@ -15,6 +16,10 @@ export const DELETE_ITEM_FAILURE = 'DELETE_ITEM_FAILURE';
 export const GET_ITEMS_START   = 'GET_ITEMS_START';
 export const GET_OWNER_ITEMS_SUCCESS = 'GET_OWNER_ITEMS_SUCCESS';
 export const GET_ITEMS_FAILURE = 'GET_ITEMS_FAILURE';
+
+export const SET_CURRENT_VIEW_ITEM = 'SET_CURRENT_VIEW_ITEM';
+export const SET_CURRENT_EDIT_ITEM = 'SET_CURRENT_EDIT_ITEM';
+
 
 // Get the owner's items
 export const getOwnerItems = (ownerID) => dispatch => {
@@ -69,17 +74,30 @@ export const createItem = (itemData) => dispatch => {
         })
 }
 
-export const editItem = (itemID) => dispatch => {
+export const setCurrentEditItem = (itemData) => dispatch => {
+    dispatch({type: SET_CURRENT_EDIT_ITEM, payload: itemData});
+}
+
+export const setCurrentViewItem = (itemData) => dispatch => {
+    dispatch({type: SET_CURRENT_VIEW_ITEM, payload: itemData});
+}
+
+
+export const editItem = (itemData, push) => dispatch => {
     dispatch({type: EDIT_ITEM_START});
 
-    axiosWithAuth().put(`https://ptct-african-marketplace-3.herokuapp.com/api/items/owner/${itemID}`, itemID)
+    axiosWithAuth().put(`https://ptct-african-marketplace-3.herokuapp.com/api/items/${itemData.itemId}`, itemData)
         .then(success => {
+            console.log('Edit item success!')
+            console.log(success);
             dispatch({
                 type   : EDIT_ITEM_SUCCESS,
                 payload: success.data
             });
+            getOwnerItems(itemData.ownerId);
+            setCurrentEditItem(itemData);
 
-            //push('/items');
+            push(`/user/${itemData.ownerId}`);
         })
         .catch(err => {
             console.log(err);
@@ -97,8 +115,10 @@ export const editItem = (itemID) => dispatch => {
 export const deleteItem = (itemID) => dispatch => {
     dispatch({type: DELETE_ITEM_START});
 
-    axiosWithAuth().put(`https://ptct-african-marketplace-3.herokuapp.com/api/owner/${itemID}`, itemID)
+    axiosWithAuth().delete(`https://ptct-african-marketplace-3.herokuapp.com/api/items/${itemID}`)
         .then(success => {
+            console.log('item deletion successful')
+            console.log(success);
             dispatch({
                 type   : DELETE_ITEM_SUCCESS,
                 payload: success.data
